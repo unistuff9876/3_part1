@@ -4,7 +4,7 @@
 
 GroupStrategyResult::GroupStrategyResult(QMap<QString, qint64> &nameSizesMap, qint64 totalSize)
 {
-    m_totalSize = totalSize <= 0 ? 1 : totalSize;
+    m_totalSize = totalSize <= 0 ? 0 : totalSize;
 
     QMapIterator<QString, qint64> nameSizesMapIt(nameSizesMap);
     while (nameSizesMapIt.hasNext()) {
@@ -12,7 +12,12 @@ GroupStrategyResult::GroupStrategyResult(QMap<QString, qint64> &nameSizesMap, qi
         m_names.push_back(nameSizesMapIt.key());
         qint64 curSize = nameSizesMapIt.value();
         m_sizes.push_back(curSize);
-        m_percentages.push_back((float)curSize / (float)m_totalSize);
+        if (m_totalSize != 0) {
+            m_percentages.push_back((float)curSize / (float)m_totalSize);
+        }
+        else {
+            m_percentages.push_back(-0.01);
+        }
     }
 }
 /*

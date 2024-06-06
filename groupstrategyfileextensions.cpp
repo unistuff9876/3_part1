@@ -2,11 +2,6 @@
 
 #include <QMap>
 
-GroupStrategyFileExtensions::GroupStrategyFileExtensions()
-{
-
-}
-
 GroupStrategyResult GroupStrategyFileExtensions::use(QString path)
 {
     QDirIterator it(path, QDir::Files, QDirIterator::Subdirectories);
@@ -24,4 +19,10 @@ GroupStrategyResult GroupStrategyFileExtensions::use(QString path)
     }
 
     return GroupStrategyResult(extensionsNamesAndSizeSumsMap, totalFileSize);
+}
+
+QString GroupStrategyFileExtensions::prefix()
+{
+    static const QString ret = "*.";
+    return ret;
 }

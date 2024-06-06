@@ -6,9 +6,11 @@
 class GroupStrategyFileExtensions : public GroupStrategy
 {
 public:
-    GroupStrategyFileExtensions();
+    GroupStrategyFileExtensions() = default;
 
     GroupStrategyResult use(QString path) final;
+
+    QString prefix() final;
 };
 
 #endif // GROUPSTRATEGYFILEEXTENSIONS_H
