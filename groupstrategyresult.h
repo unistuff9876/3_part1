@@ -8,28 +8,22 @@
 
 class GroupStrategyResult
 {
-//private:
-public:
+private:
     std::vector<QString> m_names;
     std::vector<qint64> m_sizes;
-    std::vector<float> m_percentages;
     qint64 m_totalSize;
 
 public:
     GroupStrategyResult() = delete;
     GroupStrategyResult(QMap<QString, qint64> &nameSizesMap, qint64 totalSize = 1);
-/*
-    int totalSize() const;
 
-    std::vector<QString> &names() const;
+    std::vector<QString> &names();
 
-    std::vector<qint64> &sizes() const;
+    std::vector<qint64> &sizes();
 
-    std::vector<float> &percentages() const;*/
+    int totalSize();
 
-    size_t itemCount() const;
-
-    //std::tuple<QString, qint64, float> operator[](int i) const;
+    size_t itemCount();
 };
 
 #endif // GROUPSTRATEGYRESULT_H

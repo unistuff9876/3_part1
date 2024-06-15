@@ -26,22 +26,22 @@ void doTheThing(GroupStrategy* groupStrategy, QString path) {
     static QLocale qLocaleForSizeFormatting;
     std::vector<std::string> sizeStrings;
     for (size_t i = 0; i < res.itemCount(); i++) {
-        sizeStrings.push_back(qLocaleForSizeFormatting.formattedDataSize(res.m_sizes[i]).toStdString());
+        sizeStrings.push_back(qLocaleForSizeFormatting.formattedDataSize(res.sizes()[i]).toStdString());
     }
 
     for (size_t i = 0; i < res.itemCount(); i++) {
         //1 for padding
-        namew = std::max(namew, res.m_names[i].size() + 1 + namePrefix.size());
+        namew = std::max(namew, res.names()[i].size() + 1 + namePrefix.size());
         //1 for log10 + 1 for padding
         sizew = std::max(sizew, (int)sizeStrings[i].size() + 1);
     }
 
     std::cout << std::setw(namew) << "name" << std::setw(sizew) << "size" << "percentage\n";
     for (size_t i = 0; i < res.itemCount(); i++) {
-        std::cout << qPrintable(namePrefix) << std::setw(namew - namePrefix.size()) << qPrintable(res.m_names[i]) \
+        std::cout << qPrintable(namePrefix) << std::setw(namew - namePrefix.size()) << qPrintable(res.names()[i]) \
                   << std::setw(sizew) << sizeStrings[i];
 
-        float curPercentage = res.m_percentages[i] * 100;
+        float curPercentage = (float)res.sizes()[i] / (float)res.totalSize() * 100;
 
         if (curPercentage < 1 && curPercentage > 0) {
             std::cout << "<1";
@@ -58,7 +58,7 @@ void doTheThing(GroupStrategy* groupStrategy, QString path) {
 
         std::cout << "%\n";
     }
-    std::cout << "\ntotal size: " << qLocaleForSizeFormatting.formattedDataSize(res.m_totalSize).toStdString();
+    std::cout << "\ntotal size: " << qLocaleForSizeFormatting.formattedDataSize(res.totalSize()).toStdString();
 }
 
 int main(int argc, char *argv[])
